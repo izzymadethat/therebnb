@@ -18,10 +18,29 @@ const styles = {
 };
 
 export default function Hero() {
-  const [sliderVal, setSliderVal] = useState(1500);
+  const [formData, setFormData] = useState({
+    destination: "",
+    vacationType: "",
+    date: "",
+    maxPrice: 1500,
+  });
 
-  function handleChangeSliderValue(e) {
-    setSliderVal(parseInt(e.target.value));
+  function handleClearForm() {
+    setFormData({
+      destination: "",
+      vacationType: "",
+      date: "",
+      maxPrice: 1500,
+    });
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const { destination, vacationType, date, maxPrice } = formData;
+
+    if (!destination || !date) return alert("Pick a destination or date!");
+
+    console.log("Form Data Received: ", formData);
   }
 
   return (
@@ -38,15 +57,31 @@ export default function Hero() {
         </h2>
       </div>
 
-      <div className="w-full bg-neutral-100 min-h-48 max-w-7xl mx-auto rounded-md border flex gap-2 drop-shadow-md  items-center">
-        <form className="w-full flex items-center justify-center gap-4">
+      <div className="w-full bg-neutral-100 bg-opacity-70 min-h-48 max-w-[1500px] mx-auto rounded-md border flex gap-2 drop-shadow-md  items-center px-2">
+        <form
+          className="w-full flex items-center justify-center gap-4"
+          onSubmit={handleFormSubmit}
+        >
           <div className={styles.formControl}>
             <label className={styles.label}>Destination:</label>
-            <input type="text" className={styles.input} />
+            <input
+              type="text"
+              className={styles.input}
+              value={formData.destination}
+              onChange={(e) =>
+                setFormData({ ...formData, destination: e.target.value })
+              }
+            />
           </div>
           <div className={styles.formControl}>
             <label className={styles.label}>Vacation Type:</label>
-            <select className={styles.input}>
+            <select
+              className={styles.input}
+              defaultValue={formData.vacationType}
+              onChange={(e) =>
+                setFormData({ ...formData, vacationType: e.target.value })
+              }
+            >
               {vacationTypes.map((type, index) => (
                 <option value={type} key={index}>
                   {type}
@@ -56,26 +91,44 @@ export default function Hero() {
           </div>
           <div className={styles.formControl}>
             <label className={styles.label}>Be There Date:</label>
-            <input type="date" className={styles.input} />
+            <input
+              type="date"
+              className={styles.input}
+              value={formData.date}
+              onChange={(e) =>
+                setFormData({ ...formData, date: e.target.value })
+              }
+            />
           </div>
           <div className={styles.formControl}>
             <div className="flex justify-between items-center">
               <label className={styles.label}>Max Price:</label>
-              <span className="font-bold">${sliderVal}</span>
+              <span className="font-bold">${formData.maxPrice}</span>
             </div>
             <input
               type="range"
               min={500}
               max={25000}
               step={100}
-              defaultValue={sliderVal}
-              onChange={handleChangeSliderValue}
+              defaultValue={formData.maxPrice}
+              onChange={(e) =>
+                setFormData({ ...formData, maxPrice: parseInt(e.target.value) })
+              }
               className={styles.slider}
             />
           </div>
-          <button type="submit" className={styles.button}>
-            Find a Stay
-          </button>
+          <div className="ml-6 flex flex-col items-center">
+            <button type="submit" className={styles.button}>
+              Find a Stay
+            </button>
+            <button
+              type="button"
+              className="border-blue-600 font-bold rounded-md px-6 py-2 text-sm"
+              onClick={handleClearForm}
+            >
+              Clear Fields
+            </button>
+          </div>
         </form>
       </div>
     </main>
