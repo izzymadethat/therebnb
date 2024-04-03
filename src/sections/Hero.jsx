@@ -79,7 +79,7 @@ export default function Hero() {
                 <CiLocationOn className="absolute right-2 size-5 text-blue-600" />
               </div>
             </div>
-            {/* <div className={styles.formControl}>
+            <div className={styles.formControl}>
               <label className={styles.label}>Vacation Type:</label>
               <select
                 className={styles.input}
@@ -88,13 +88,13 @@ export default function Hero() {
                   setFormData({ ...formData, vacationType: e.target.value })
                 }
               >
-                {vacationTypes.map((type, index) => (
+                {vacationPackages.map((type, index) => (
                   <option value={type} key={index}>
                     {type}
                   </option>
                 ))}
               </select>
-            </div> */}
+            </div>
             <div className={styles.formControl}>
               <label className={styles.label}>Be There Date:</label>
               <input
