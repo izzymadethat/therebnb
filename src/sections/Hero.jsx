@@ -41,7 +41,7 @@ export default function Hero() {
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    const { destination, vacationType, date, maxPrice } = formData;
+    const { destination, date } = formData;
 
     if (!destination || !date) return alert("Pick a destination or date!");
 
